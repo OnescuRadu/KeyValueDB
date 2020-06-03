@@ -1,8 +1,8 @@
 import socket
 import pickle
 import operator
-from request import Request
-from response import Response
+from Models.request import Request
+from Models.response import Response
 from apscheduler.schedulers.background import BackgroundScheduler
 from configparser import ConfigParser
 from pyparsing import Keyword, Word, Literal, printables, alphas
@@ -51,7 +51,7 @@ class Server():
         self.collections = {}
         for collection_name in self.collection_names:
             try:
-                with open(collection_name, 'rb') as handle:
+                with open(f"Data/{collection_name}.pickle", 'rb') as handle:
                     self.collections[collection_name] = pickle.loads(
                         handle.read())
             except IOError:
@@ -441,9 +441,10 @@ class Server():
         """
         for collection_name, collection_data in self.collections.copy().items():
             try:
-                with open(collection_name, 'wb') as handle:
+                with open(f"Data/{collection_name}.pickle", 'wb') as handle:
                     pickle.dump(collection_data, handle)
-            except:
+            except Exception as e:
+                print(e)
                 raise PermissionError("Permission denied to write to file.")
 
     def _schedule_snapshot(self):

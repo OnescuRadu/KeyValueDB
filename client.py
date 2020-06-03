@@ -1,7 +1,7 @@
 import socket
 import pickle
-from request import Request
-from response import Response
+from Models.request import Request
+from Models.response import Response
 
 
 class Client:
