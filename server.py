@@ -1,6 +1,7 @@
 import socket
 import pickle
 import operator
+import os
 from Models.request import Request
 from Models.response import Response
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -439,6 +440,7 @@ class Server():
         Raises:
             PermissionError: Permission denied to write to file.
         """
+        os.makedirs("Data", exist_ok=True)
         for collection_name, collection_data in self.collections.copy().items():
             try:
                 with open(f"Data/{collection_name}.pickle", 'wb') as handle:
