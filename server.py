@@ -476,6 +476,3 @@ class Server():
             self.port = 65535
             self.collection_names = []
             self.snapshot_interval = 60
-
-
-server = Server()
